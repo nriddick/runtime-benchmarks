@@ -17,7 +17,8 @@ import shutil
 runtimes = {
     "cpp": ["citor", "libfork", "TooManyCooks", "tbb", "taskflow", "cppcoro", "coros", "cobalt",
             # these 4 are quite slow - you can remove them to speed up total runtime
-            "folly", "concurrencpp", "HPX", "libcoro"]
+            "folly", "concurrencpp", "HPX", "libcoro"],
+    "d": ["antfarm"]
 }
 
 LIBRARY_REF_ENV_VAR = "RUNTIME_BENCHMARKS_LIBRARY_REF"
@@ -34,7 +35,8 @@ runtime_links = {
     "folly": "https://github.com/facebook/folly",
     "concurrencpp": "https://github.com/David-Haim/concurrencpp",
     "HPX": "https://github.com/STEllAR-GROUP/hpx",
-    "libcoro": "https://github.com/jbaldwin/libcoro"
+    "libcoro": "https://github.com/jbaldwin/libcoro",
+    "antfarm": "https://github.com/nriddick/antfarm"
 }
 
 benchmarks_order = ["skynet", "nqueens", "fib", "matmul", "channel", "io_socket_st"]

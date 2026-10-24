@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+# ...but not D sources
+!d/**/*.d
 
 # Compiled Object files
 *.slo
