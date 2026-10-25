@@ -5,7 +5,6 @@ module skynet;
 import forkjoin;
 import bench;
 import core.stdc.stdio : printf;
-import core.stdc.stdlib : malloc, free;
 import core.time : MonoTime;
 
 enum uint depthMax = 8;
@@ -30,7 +29,7 @@ Node* skyRun(Node* node) nothrow @nogc @system
     }
     ulong offset = 1;
     foreach (_; 0 .. depthMax - depth - 1) offset *= 10;
-    auto kids = cast(Sky*) malloc(10 * Sky.sizeof);
+    auto kids = allocFrames!Sky(10);
     Node*[10] nodes;
     foreach (i; 0 .. 10)
     {
@@ -50,7 +49,7 @@ Node* skyJoin(Node* node) nothrow @nogc @system
     ulong sum;
     foreach (i; 0 .. 10) sum += s.kids[i].result;
     s.result = sum;
-    free(s.kids);
+    freeFrame(s.kids);
     return null;
 }
 

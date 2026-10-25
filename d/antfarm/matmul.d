@@ -84,7 +84,7 @@ Node* mmRun(Node* node) nothrow @nogc @system
         matmulSmall(m.a, m.b, m.c, m.n, m.N);
         return complete(node);
     }
-    m.kids = cast(Mm*) malloc(4 * Mm.sizeof);
+    m.kids = allocFrames!Mm(4);
     m.phase = 0;
     m.node.join = &mmJoin;
     return forkPhase(m);
@@ -98,7 +98,7 @@ Node* mmJoin(Node* node) nothrow @nogc @system
         m.phase = 1;
         return forkPhase(m);
     }
-    free(m.kids);
+    freeFrame(m.kids);
     return null;
 }
 

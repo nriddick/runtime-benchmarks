@@ -5,7 +5,6 @@ module nqueens;
 import forkjoin;
 import bench;
 import core.stdc.stdio : printf;
-import core.stdc.stdlib : malloc, free;
 import core.time : MonoTime;
 
 enum int work = 14;
@@ -51,7 +50,7 @@ Node* queensRun(Node* node) nothrow @nogc @system
         q.result = 0;
         return complete(node);
     }
-    auto kids = cast(Queens*) malloc(count * Queens.sizeof);
+    auto kids = allocFrames!Queens(count);
     Node*[work] nodes;
     foreach (i; 0 .. count)
     {
@@ -73,7 +72,7 @@ Node* queensJoin(Node* node) nothrow @nogc @system
     int sum;
     foreach (i; 0 .. q.count) sum += q.kids[i].result;
     q.result = sum;
-    free(q.kids);
+    freeFrame(q.kids);
     return null;
 }
 

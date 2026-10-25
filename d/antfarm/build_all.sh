@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Builds the Ant Farm (D) benchmarks into build/<bench>, the layout the
 # harness expects. Fetches Ant Farm at the tag below (or at
-# RUNTIME_BENCHMARKS_LIBRARY_REF) into build/antfarm. Needs LDC (ldc2) 1.40
+# RUNTIME_BENCHMARKS_LIBRARY_REF) into build/antfarm. Needs LDC (ldc2) 1.42
 # or newer and git. Links the same allocator the C++ runtimes look for, in the
 # same order: tcmalloc, mimalloc, jemalloc, else the system allocator.
 set -euo pipefail
 cd "$(dirname "$0")"
-ANTFARM_TAG=${RUNTIME_BENCHMARKS_LIBRARY_REF:-v2.0.0}
+ANTFARM_TAG=${RUNTIME_BENCHMARKS_LIBRARY_REF:-v2.1.0}
 ANTFARM_REPO=https://github.com/nriddick/antfarm
 DC=${DC:-ldc2}
 

@@ -1,11 +1,11 @@
 /// fib(n) on the fork-join dispatcher: fib(n-1) goes on the deque, fib(n-2)
-/// runs inline, the join adds the results. No sequential cutoff.
+/// runs inline, the join adds the results. No sequential cutoff. Child
+/// frames come from the dispatcher's frame pool (`allocFrames`/`freeFrame`).
 module fib;
 
 import forkjoin;
 import bench;
 import core.stdc.stdio : printf;
-import core.stdc.stdlib : malloc, free;
 import core.time : MonoTime;
 
 struct Fib
@@ -24,7 +24,7 @@ Node* fibRun(Node* node) nothrow @nogc @system
         f.result = f.n;
         return complete(node);
     }
-    auto kids = cast(Fib*) malloc(2 * Fib.sizeof);
+    auto kids = allocFrames!Fib(2);
     kids[0] = Fib.init;
     kids[0].n = f.n - 1;
     kids[0].node.run = &fibRun;
@@ -41,7 +41,7 @@ Node* fibJoin(Node* node) nothrow @nogc @system
 {
     auto f = cast(Fib*) node;
     f.result = f.kids[0].result + f.kids[1].result;
-    free(f.kids);
+    freeFrame(f.kids);
     return null;
 }
 

@@ -71,7 +71,7 @@ Note: if you have issues with a particular runtime, you can simply remove it fro
 - libfork and TooManyCooks depend on the [hwloc](https://www.open-mpi.org/projects/hwloc/) library.
 - TBB benchmarks depend on system installed TBB - see the [installation guide here for the newest version](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2024-2/apt.html) or you may be able to find the old version 'libtbb-dev' in your system package manager
 - HPX and boost::cobalt requires Boost 1.82 or newer. You may need to build Boost from source, since cobalt is currently not included in distro packages.
-- The Ant Farm (D) benchmarks need [LDC](https://github.com/ldc-developers/ldc) 1.40 or newer (`ldc2` on the PATH) and git; `d/antfarm/build_all.sh` fetches the library at its pinned tag.
+- The Ant Farm (D) benchmarks need [LDC](https://github.com/ldc-developers/ldc) 1.42 or newer (`ldc2` on the PATH) and git; `d/antfarm/build_all.sh` fetches the library at its pinned tag.
 - A high performance allocator (tcmalloc, jemalloc, or mimalloc) is also recommended. The build script will dynamically link to any of these if they are available.
 
 On Debian/Ubuntu:
