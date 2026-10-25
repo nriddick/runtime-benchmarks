@@ -1,7 +1,37 @@
 # runtime-benchmarks
 Benchmarks to compare the performance of async runtimes / executors.
 
-[<img src="https://fleetcode.com/img/bench-splash.png">](https://fleetcode.com/runtime-benchmarks/)
+### Results summary table (Ryzen 9 5900XT, 16 cores / 32 threads):
+
+| Runtime | [antfarm](https://github.com/nriddick/antfarm) | [citor](https://github.com/Lallapallooza/citor) | [libfork](https://github.com/ConorWilliams/libfork) | [TooManyCooks](https://github.com/tzcnt/TooManyCooks) | [tbb](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onetbb.html) |
+| --- | --- | --- | --- | --- | --- |
+| Mean Ratio to Best<br>(lower is better) | 1.00x | 1.16x | 1.36x | 1.54x | 3.62x |
+| skynet | 49006 us | 54125 us | 95956 us | 89558 us | 300456 us |
+| nqueens | 124196 us | 167275 us | 141361 us | 162435 us | 258457 us |
+| fib(39) | 104677 us | 107797 us | 141385 us | 206083 us | 533165 us |
+| matmul(2048) | 61108 us | 70266 us | 60574 us | 62773 us | 71829 us |
+
+### Peak Memory Usage (Max RSS) (16 cores / 32 threads):
+
+| Runtime | antfarm | citor | libfork | TooManyCooks | tbb |
+| --- | --- | --- | --- | --- | --- |
+| skynet | 14.16 MB | 11.23 MB | 13.49 MB | 13.77 MB | 11.96 MB |
+| nqueens | 13.54 MB | 13.36 MB | 15.38 MB | 14.18 MB | 12.77 MB |
+| fib(39) | 15.86 MB | 24.6 MB | 13.7 MB | 13.66 MB | 11.84 MB |
+| matmul(2048) | 63.36 MB | 61.77 MB | 60.89 MB | 61.17 MB | 61.27 MB |
+
+<details>
+<summary>Click to view the machine configuration used in the 5900XT tables</summary>
+
+- Processor: AMD Ryzen 9 5900XT 16-core processor (two CCDs, one L3 each)
+- Worker Thread Count: 32 (SMT on)
+- OS: CachyOS Linux, kernel 7.2.9
+- Compiler: Clang 23.1.3 Release (-O3 -march=native) for the C++ runtimes; LDC 1.43.0 (-O3 -release -mcpu=native) for Ant Farm 2.1.0
+- CPU boost enabled / performance governor
+- Linked against libtcmalloc_minimal.so.4
+- Each cell is the median of three interleaved rounds at 32 threads; runtimes not shown were not built on this machine
+
+</details>
 
 An interactive view of the full results dataset is available at: https://fleetcode.com/runtime-benchmarks/
 
